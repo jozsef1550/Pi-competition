@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="PiSearch.App/PiSearch.App.csproj" />
+  <Project Path="PiSearch.Core/PiSearch.Core.csproj" />
+  <Project Path="PiSearch.Tests/PiSearch.Tests.csproj" />
+  <Project Path="PiSearch.Tools/PiSearch.Tools.csproj" />
+</Solution>

@@ -1,0 +1,32 @@
+<Project>
+  <!--
+    Shared MSBuild properties applied to every project in the solution.
+    Keeps each .csproj DRY – only project-specific settings live there.
+  -->
+  <PropertyGroup>
+    <!-- Treat all compiler warnings as errors in CI (set TreatWarningsAsErrors
+         only when building in Release so local dev stays convenient) -->
+    <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
+
+    <!-- Produce deterministic builds (required for reproducible artifacts) -->
+    <Deterministic>true</Deterministic>
+
+    <!-- Embed PDB info in the assembly for better stack traces -->
+    <DebugType>embedded</DebugType>
+
+    <!-- Strong nullable analysis across all projects -->
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Set the company / product metadata shown in Explorer -->
+    <Company>Pi-Competition</Company>
+    <Product>PiSearch</Product>
+    <Copyright>Copyright © 2026 Pi-Competition contributors</Copyright>
+  </PropertyGroup>
+
+  <!-- Analyzer: enable all .NET code-quality analysers -->
+  <PropertyGroup>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>Recommended</AnalysisMode>
+  </PropertyGroup>
+</Project>

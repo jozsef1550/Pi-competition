@@ -1,0 +1,89 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main", "master", "copilot/**" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+# Restrict all jobs to read-only access to the repository contents.
+permissions:
+  contents: read
+
+jobs:
+  # ─── Build & test (cross-platform) ─────────────────────────────────────────
+  build-and-test:
+    name: Build & Test (.NET 8)
+    runs-on: ubuntu-latest          # Linux runner is fast; Core library is cross-platform
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore PiSearch.Core/PiSearch.Core.csproj
+
+      - name: Build PiSearch.Core
+        run: dotnet build PiSearch.Core/PiSearch.Core.csproj --no-restore --configuration Release
+
+      - name: Run tests
+        run: >
+          dotnet test PiSearch.Tests/PiSearch.Tests.csproj
+          --no-restore
+          --configuration Release
+          --logger "trx;LogFileName=test-results.trx"
+          --results-directory ./TestResults
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults/*.trx
+
+  # ─── Build WPF app (Windows only, needed for net8.0-windows) ───────────────
+  build-wpf:
+    name: Build WPF App (Windows)
+    runs-on: windows-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore PiSearch.App/PiSearch.App.csproj
+
+      - name: Build PiSearch.App
+        run: dotnet build PiSearch.App/PiSearch.App.csproj --no-restore --configuration Release
+
+      - name: Publish self-contained Windows exe
+        run: >
+          dotnet publish PiSearch.App/PiSearch.App.csproj
+          --configuration Release
+          --runtime win-x64
+          --self-contained true
+          -p:PublishSingleFile=true
+          -p:PublishReadyToRun=true
+          --output ./publish
+
+      - name: Upload published artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PiSearch-win-x64
+          path: publish/

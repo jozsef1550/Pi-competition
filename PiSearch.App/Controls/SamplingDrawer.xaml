@@ -1,0 +1,65 @@
+<UserControl x:Class="PiSearch.App.Controls.SamplingDrawer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="280"
+             Background="#FF0D0D0D">
+
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" x:Key="HeaderStyle">
+            <Setter Property="Foreground" Value="#FF39FF14"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize"   Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin"     Value="0,0,0,4"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="EntryStyle">
+            <Setter Property="Foreground" Value="#FFAAFFAA"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize"   Value="12"/>
+            <Setter Property="Margin"     Value="2,1"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1A39FF14" Padding="12,8">
+            <TextBlock Text="▶  SAMPLING DRAWER" Style="{StaticResource HeaderStyle}"/>
+        </Border>
+
+        <!-- Character map list -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                      Padding="12,8">
+            <ItemsControl x:Name="CharMapList" ItemsSource="{Binding}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,2" Padding="6,4"
+                                Background="#0D39FF14"
+                                CornerRadius="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"
+                                           Text="{Binding Character}"
+                                           Style="{StaticResource EntryStyle}"
+                                           FontSize="14"
+                                           FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding Encoded}"
+                                           Style="{StaticResource EntryStyle}"
+                                           Foreground="#FF39FF14"
+                                           FontWeight="Bold"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
