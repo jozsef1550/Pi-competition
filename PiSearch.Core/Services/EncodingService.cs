@@ -20,7 +20,7 @@ public sealed class EncodingService
     /// Integer added to every character code point before conversion.
     /// Use positive values to try "shifted" keys.
     /// </param>
-    public string Encode(string text, EncodingMethod method, int offset = 0)
+    public static string Encode(string text, EncodingMethod method, int offset = 0)
     {
         if (string.IsNullOrEmpty(text))
             return string.Empty;
@@ -38,7 +38,7 @@ public sealed class EncodingService
     /// Returns a human-readable description of the character-to-number mapping
     /// for all characters in <paramref name="text"/>.
     /// </summary>
-    public IEnumerable<(char Character, string Encoded)> GetCharacterMap(
+    public static IEnumerable<(char Character, string Encoded)> GetCharacterMap(
         string text, EncodingMethod method, int offset = 0)
     {
         if (string.IsNullOrEmpty(text)) yield break;
@@ -48,10 +48,10 @@ public sealed class EncodingService
             int code = c + offset;
             string encoded = method switch
             {
-                EncodingMethod.Ascii        => code.ToString(),
+                EncodingMethod.Ascii        => code.ToString(System.Globalization.CultureInfo.InvariantCulture),
                 EncodingMethod.CustomOffset => EncodeCustomChar(c, offset),
                 EncodingMethod.Base16       => Convert.ToString(code, 16).ToUpperInvariant(),
-                _ => code.ToString()
+                _ => code.ToString(System.Globalization.CultureInfo.InvariantCulture)
             };
             yield return (c, encoded);
         }
@@ -97,7 +97,7 @@ public sealed class EncodingService
         else
             code = (int)c + offset;                // fallback: raw code point
 
-        return code.ToString("D2");                // zero-pad to at least 2 digits
+        return code.ToString("D2", System.Globalization.CultureInfo.InvariantCulture); // zero-pad to at least 2 digits
     }
 
     /// <summary>

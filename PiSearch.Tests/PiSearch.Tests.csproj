@@ -7,6 +7,12 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+
+    <!--
+      CA1707: xUnit convention uses Method_Scenario_Expected naming with underscores.
+      Suppress the "no underscores in identifiers" rule for test projects only.
+    -->
+    <NoWarn>$(NoWarn);CA1707</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

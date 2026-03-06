@@ -1,0 +1,69 @@
+# EditorConfig – coding-style conventions for the PiSearch project
+# https://editorconfig.org
+
+root = true
+
+# ── All files ────────────────────────────────────────────────────────────────
+[*]
+charset                  = utf-8
+end_of_line              = crlf
+indent_style             = space
+indent_size              = 4
+trim_trailing_whitespace = true
+insert_final_newline     = true
+
+# ── C# source files ──────────────────────────────────────────────────────────
+[*.cs]
+# Prefer "var" only when the type is obvious from the right-hand side
+csharp_style_var_for_built_in_types       = false : suggestion
+csharp_style_var_when_type_is_apparent    = true  : suggestion
+csharp_style_var_elsewhere                = false : suggestion
+
+# Prefer expression-bodied members where they aid readability
+csharp_style_expression_bodied_methods    = when_on_single_line : suggestion
+csharp_style_expression_bodied_properties = true : suggestion
+
+# Require braces around all control flow bodies
+csharp_prefer_braces                      = when_multiline : warning
+
+# Namespace style: file-scoped (C# 10+)
+csharp_style_namespace_declarations       = file_scoped : warning
+
+# Use primary constructors when available
+csharp_style_prefer_primary_constructors  = true : suggestion
+
+# Prefer pattern matching
+csharp_style_pattern_matching_over_is_with_cast_check = true : suggestion
+csharp_style_pattern_matching_over_as_with_null_check  = true : suggestion
+
+# Newline preferences
+csharp_new_line_before_open_brace          = all
+csharp_new_line_before_else                = true
+csharp_new_line_before_catch               = true
+csharp_new_line_before_finally             = true
+csharp_new_line_before_members_in_object_initializers = true
+
+# Spacing
+csharp_space_after_cast                   = false
+csharp_space_before_colon_in_inheritance_clause = true
+csharp_space_after_colon_in_inheritance_clause  = true
+
+# Indentation
+csharp_indent_case_contents               = true
+csharp_indent_switch_labels               = true
+
+# ── XML / XAML ───────────────────────────────────────────────────────────────
+[*.{xml,xaml,csproj,props,targets,slnx}]
+indent_size = 2
+
+# ── JSON ─────────────────────────────────────────────────────────────────────
+[*.json]
+indent_size = 2
+
+# ── Markdown ─────────────────────────────────────────────────────────────────
+[*.md]
+trim_trailing_whitespace = false
+
+# ── YAML ─────────────────────────────────────────────────────────────────────
+[*.{yml,yaml}]
+indent_size = 2

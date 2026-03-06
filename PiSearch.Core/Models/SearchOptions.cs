@@ -15,10 +15,10 @@ public sealed class SearchOptions
     /// Integer offset added to every character code point before encoding.
     /// Used with <see cref="EncodingMethod.CustomOffset"/> or to try shifted keys.
     /// </summary>
-    public int Offset { get; set; } = 0;
+    public int Offset { get; set; }
 
     /// <summary>Maximum number of digits of π to scan (0 = no limit).</summary>
-    public long MaxDigits { get; set; } = 0;
+    public long MaxDigits { get; set; }
 
     /// <summary>Human-readable label for this search configuration (shown in UI).</summary>
     public string Label { get; set; } = string.Empty;

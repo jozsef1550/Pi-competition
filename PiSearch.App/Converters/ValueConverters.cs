@@ -43,7 +43,7 @@ public sealed class PercentageConverter : IValueConverter
 public sealed class LargeNumberConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        => value is long l ? l.ToString("N0") : value?.ToString() ?? "—";
+        => value is long l ? l.ToString("N0", culture) : value?.ToString() ?? "—";
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         => DependencyProperty.UnsetValue;

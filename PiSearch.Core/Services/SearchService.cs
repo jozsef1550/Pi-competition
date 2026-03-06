@@ -15,7 +15,6 @@ public sealed class SearchService : IDisposable
     private const int ChunkSize = 4 * 1024 * 1024;
 
     private readonly PiDigitReader _reader;
-    private readonly EncodingService _encoder = new();
     private bool _disposed;
 
     public SearchService(PiDigitReader reader)
@@ -101,7 +100,7 @@ public sealed class SearchService : IDisposable
     public SearchResult? SearchSingle(SearchOptions options,
         CancellationToken cancellationToken = default)
     {
-        string encoded = _encoder.Encode(options.SearchText, options.Encoding, options.Offset);
+        string encoded = EncodingService.Encode(options.SearchText, options.Encoding, options.Offset);
         if (string.IsNullOrEmpty(encoded)) return null;
 
         var bm = new BoyerMooreSearcher(encoded);

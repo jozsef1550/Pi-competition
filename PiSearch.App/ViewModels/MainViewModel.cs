@@ -10,10 +10,8 @@ namespace PiSearch.App.ViewModels;
 /// Primary ViewModel for MainWindow.
 /// Drives the search, statistics, animation feed, and all UI panels.
 /// </summary>
-public sealed class MainViewModel : ViewModelBase
+public sealed class MainViewModel : ViewModelBase, IDisposable
 {
-    // ─── Injected services ────────────────────────────────────────────────
-    private readonly EncodingService _encodingService = new();
     private readonly Dispatcher _dispatcher;
 
     // ─── Backing fields ───────────────────────────────────────────────────
@@ -148,7 +146,7 @@ public sealed class MainViewModel : ViewModelBase
 
     public ObservableCollection<SearchKeyViewModel> SearchKeys { get; } = new();
 
-    public IEnumerable<EncodingMethod> EncodingMethods
+    public static IEnumerable<EncodingMethod> EncodingMethods
         => Enum.GetValues<EncodingMethod>();
 
     // ─── Commands ─────────────────────────────────────────────────────────
@@ -308,7 +306,7 @@ public sealed class MainViewModel : ViewModelBase
         key.CharacterMap.Clear();
         if (string.IsNullOrEmpty(SearchText)) return;
 
-        foreach (var (ch, encoded) in _encodingService.GetCharacterMap(SearchText, key.Encoding, key.Offset))
+        foreach (var (ch, encoded) in EncodingService.GetCharacterMap(SearchText, key.Encoding, key.Offset))
         {
             key.CharacterMap.Add(new CharMapEntry
             {
@@ -318,7 +316,7 @@ public sealed class MainViewModel : ViewModelBase
             });
         }
 
-        key.EncodedPattern = _encodingService.Encode(SearchText, key.Encoding, key.Offset);
+        key.EncodedPattern = EncodingService.Encode(SearchText, key.Encoding, key.Offset);
     }
 
     private void SyncSearchKeys()
@@ -327,5 +325,13 @@ public sealed class MainViewModel : ViewModelBase
             AddKey();
         while (SearchKeys.Count > AlternativeCount)
             SearchKeys.RemoveAt(SearchKeys.Count - 1);
+    }
+
+    // ─── IDisposable ─────────────────────────────────────────────────────
+
+    public void Dispose()
+    {
+        _cts?.Dispose();
+        _activeService?.Dispose();
     }
 }
