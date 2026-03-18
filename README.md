@@ -7,7 +7,7 @@
 
 ---
 
-## ✨ Features
+## Features
 
 | Category | Capability |
 |---|---|
@@ -33,7 +33,7 @@ If no match is found it can retry with an offset (adding `+1` to every code poin
 
 ---
 
-## 🗂 Solution Structure
+##  Solution Structure
 
 ```
 PiSearch.slnx
@@ -74,7 +74,7 @@ PiSearch.slnx
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -148,7 +148,7 @@ dotnet publish PiSearch.App/PiSearch.App.csproj \
 
 ---
 
-## 🖥 Using the App
+##  Using the App
 
 ### Search bar
 
@@ -189,7 +189,7 @@ The card border turns **neon green** when that key wins the race.
 
 ---
 
-## 📁 Using a large π file
+##  Using a large π file
 
 The `PiDigitReader` accepts any plain-text file whose content is the decimal
 expansion of π (digits only, no spaces):
@@ -211,7 +211,7 @@ Point the app at the file via the **π FILE** field or the `…` browse button.
 
 ---
 
-## 🔬 Algorithm Details
+##  Algorithm Details
 
 ### Boyer-Moore
 
@@ -241,7 +241,7 @@ where **m** = pattern length (digits) and **n** = digits scanned so far.
 
 ---
 
-## 🧪 Tests
+##  Tests
 
 ```
 dotnet test PiSearch.Tests/PiSearch.Tests.csproj --verbosity normal
@@ -257,7 +257,7 @@ dotnet test PiSearch.Tests/PiSearch.Tests.csproj --verbosity normal
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 1. Fork the repository and create a feature branch.
 2. Run tests (`dotnet test`) before opening a PR.
@@ -266,7 +266,7 @@ dotnet test PiSearch.Tests/PiSearch.Tests.csproj --verbosity normal
 
 ---
 
-## 📄 Licence
+##  Licence
 
 This project is released for the Pi-Competition and is open to all contributors.
 
